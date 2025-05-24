@@ -10,5 +10,6 @@ namespace ExemploUnitOfWork.API.Interfaces.Services
         Task<Cliente> AtualizarAsync(Cliente cliente);
         Task<bool> RemoverAsync(int id);
         Task<IEnumerable<Cliente>> ObterPorNomeAsync(string nome);
+        Task AtualizarDataUltimaCompraAsync(int id);
     }
 }

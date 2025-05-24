@@ -33,12 +33,12 @@ namespace ExemploUnitOfWork.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Cliente>> CreateCliente(Cliente cliente)
+        public async Task<ActionResult<Cliente>> Create(Cliente cliente)
         {
             try
             {
                 var novoCliente = await _clienteService.AdicionarAsync(cliente);
-                return CreatedAtAction(nameof(GetCliente), new { id = novoCliente.Id }, novoCliente);
+                return CreatedAtAction(nameof(GetById), new { id = novoCliente.Id }, novoCliente);
             }
             catch (InvalidOperationException ex)
             {
@@ -47,7 +47,7 @@ namespace ExemploUnitOfWork.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCliente(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var sucesso = await _clienteService.RemoverAsync(id);
 
@@ -59,8 +59,16 @@ namespace ExemploUnitOfWork.API.Controllers
             return NoContent();
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Cliente>>> GetAll()
+        {
+            var clientes = await _clienteService.GetTodosAsync();
+
+            return Ok(clientes);
+        }
+
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cliente>> GetCliente(int id)
+        public async Task<ActionResult<Cliente>> GetById(int id)
         {
             var cliente = await _clienteService.ObterPorIdAsync(id);
 
@@ -72,16 +80,8 @@ namespace ExemploUnitOfWork.API.Controllers
             return Ok(cliente);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
-        {
-            var clientes = await _clienteService.GetTodosAsync();
-
-            return Ok(clientes);
-        }
-
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCliente(int id, Cliente cliente)
+        public async Task<IActionResult> Update(int id, Cliente cliente)
         {
             if (id != cliente.Id)
             {

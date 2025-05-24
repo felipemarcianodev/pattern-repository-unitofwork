@@ -37,6 +37,19 @@ namespace ExemploUnitOfWork.API.Services
             return cliente;
         }
 
+        public async Task AtualizarDataUltimaCompraAsync(int id)
+        {
+            var cliente = await _unitOfWork.Clientes.GetByIdAsync(id);
+            if (cliente is null)
+            {
+                throw new ArgumentException("Cliente não encontrado.");
+            }
+
+            cliente.AtualizarUltimaCompra();
+
+            _unitOfWork.Clientes.Update(cliente);
+            await _unitOfWork.SaveChangesAsync();
+        }
         public async Task<Cliente> AtualizarAsync(Cliente cliente)
         {
             var clienteExistente = await _unitOfWork.Clientes.GetByIdAsync(cliente.Id);

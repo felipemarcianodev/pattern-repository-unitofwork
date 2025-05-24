@@ -8,9 +8,9 @@ namespace ExemploUnitOfWork.API.Interfaces.Services
 
         Task<Produto> AdicionarAsync(Produto produto);
 
-        Task ComprarAsync(Produto produto, decimal quantidade);
+        Task ComprarAsync(int produtoId, decimal quantidade);
 
-        Task VenderAsync(Produto produto, decimal quantidade);
+        Task VenderAsync(int produtoId, decimal quantidade);
 
         #endregion Public Methods
     }

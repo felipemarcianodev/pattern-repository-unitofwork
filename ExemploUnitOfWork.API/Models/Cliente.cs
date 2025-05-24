@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ExemploUnitOfWork.API.Models
 {
@@ -26,6 +27,10 @@ namespace ExemploUnitOfWork.API.Models
         public string Endereco { get; set; } = string.Empty;
         public DateTime DataCadastro { get; set; } = DateTime.Now;
         public DateTime? DataUltimaCompra { get; set; }
-        public virtual ICollection<Venda> Vendas { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Venda> Vendas { get; set; } = new List<Venda>();
+
+        public virtual void AtualizarUltimaCompra() => DataUltimaCompra = DateTime.Now;
     }
 }

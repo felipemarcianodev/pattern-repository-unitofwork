@@ -14,9 +14,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Registro dos serviços
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
+builder.Services.AddScoped<IVendaService, VendaService>();
 
 // Configuração da API
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();

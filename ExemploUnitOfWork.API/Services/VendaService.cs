@@ -25,12 +25,12 @@ namespace ExemploUnitOfWork.API.Services
 
         public async Task AdicionarAsync(Venda venda)
         {
-            if (await _unitOfWork.Produtos.ExistsAsync(venda.ProdutoId))
+            if (!await _unitOfWork.Produtos.ExistsAsync(venda.ProdutoId))
             {
                 throw new InvalidOperationException("Informe o produto.");
             }
 
-            if (await _unitOfWork.Clientes.ExistsAsync(venda.ClienteId))
+            if (!await _unitOfWork.Clientes.ExistsAsync(venda.ClienteId))
             {
                 throw new InvalidOperationException("Informe o cliente.");
             }

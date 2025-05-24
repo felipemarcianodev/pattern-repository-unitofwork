@@ -44,6 +44,7 @@ namespace ExemploUnitOfWork.API.Context
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
                 entity.Property(e => e.ClienteId).IsRequired();
                 entity.Property(e => e.ProdutoId).IsRequired();
+                entity.Property(e => e.Quantidade).IsRequired();
                 entity.Property(e => e.DataCadastro).IsRequired();
                 entity.HasOne(e => e.Produto).WithMany(e => e.Vendas).HasForeignKey(e => e.ProdutoId);
                 entity.HasOne(e => e.Cliente).WithMany(e => e.Vendas).HasForeignKey(e => e.ClienteId);

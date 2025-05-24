@@ -26,8 +26,9 @@ namespace ExemploUnitOfWork.API.Services
             return produto;
         }
 
-        public async Task ComprarAsync(Produto produto, decimal quantidade)
+        public async Task ComprarAsync(int produtoId, decimal quantidade)
         {
+            var produto = await _unitOfWork.Produtos.GetByIdAsync(produtoId);
             if(produto is null)
                 throw new ArgumentException("Informe o produto");
 
@@ -37,8 +38,9 @@ namespace ExemploUnitOfWork.API.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task VenderAsync(Produto produto, decimal quantidade)
+        public async Task VenderAsync(int produtoId, decimal quantidade)
         {
+            var produto = await _unitOfWork.Produtos.GetByIdAsync(produtoId);
             if (produto is null)
                 throw new ArgumentException("Informe o produto");
 

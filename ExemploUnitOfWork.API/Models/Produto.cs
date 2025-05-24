@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ExemploUnitOfWork.API.Models
 {
@@ -14,13 +15,14 @@ namespace ExemploUnitOfWork.API.Models
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "O valor é obrigatório")]
-        [Range(typeof(decimal), "0.01", "999999999.99", ErrorMessage = "O valor deve ser maior que zero")]
         public decimal Valor { get; set; }
 
         [Required(ErrorMessage = "O saldo em estoque é obrigatório")]
         public decimal SaldoEstoque { get; set; }
         public DateTime DataCadastro { get; } = DateTime.Now;
-        public virtual ICollection<Venda> Vendas { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Venda> Vendas { get; set; } = new List<Venda>();
 
         public virtual void Vender(decimal quantidadeDiminuir)
         {
