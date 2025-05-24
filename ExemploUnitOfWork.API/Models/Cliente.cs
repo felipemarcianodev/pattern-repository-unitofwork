@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExemploUnitOfWork.API.Models
 {
     public class Cliente
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Nome é obrigatório")]
@@ -21,7 +24,8 @@ namespace ExemploUnitOfWork.API.Models
         [Required(ErrorMessage = "Endereço é obrigatório")]
         [StringLength(200, ErrorMessage = "Endereço deve ter no máximo 200 caracteres")]
         public string Endereco { get; set; } = string.Empty;
-
         public DateTime DataCadastro { get; set; } = DateTime.Now;
+        public DateTime? DataUltimaCompra { get; set; }
+        public virtual ICollection<Venda> Vendas { get; set; }
     }
 }

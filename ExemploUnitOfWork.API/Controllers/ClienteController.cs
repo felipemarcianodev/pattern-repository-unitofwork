@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ExemploUnitOfWork.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/clientes")]
     public class ClienteController : ControllerBase
     {
         #region Private Fields
@@ -25,25 +25,19 @@ namespace ExemploUnitOfWork.API.Controllers
 
         #region Public Methods
 
-        /// <summary>
-        /// Busca clientes por nome
-        /// </summary>
         [HttpGet("buscar/{nome}")]
         public async Task<ActionResult<IEnumerable<Cliente>>> BuscarPorNome(string nome)
         {
-            var clientes = await _clienteService.BuscarClientesPorNomeAsync(nome);
+            var clientes = await _clienteService.ObterPorNomeAsync(nome);
             return Ok(clientes);
         }
 
-        /// <summary>
-        /// Cria um novo cliente
-        /// </summary>
         [HttpPost]
         public async Task<ActionResult<Cliente>> CreateCliente(Cliente cliente)
         {
             try
             {
-                var novoCliente = await _clienteService.CriarClienteAsync(cliente);
+                var novoCliente = await _clienteService.AdicionarAsync(cliente);
                 return CreatedAtAction(nameof(GetCliente), new { id = novoCliente.Id }, novoCliente);
             }
             catch (InvalidOperationException ex)
@@ -52,13 +46,10 @@ namespace ExemploUnitOfWork.API.Controllers
             }
         }
 
-        /// <summary>
-        /// Remove um cliente
-        /// </summary>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCliente(int id)
         {
-            var sucesso = await _clienteService.RemoverClienteAsync(id);
+            var sucesso = await _clienteService.RemoverAsync(id);
 
             if (!sucesso)
             {
@@ -68,13 +59,10 @@ namespace ExemploUnitOfWork.API.Controllers
             return NoContent();
         }
 
-        /// <summary>
-        /// Obtém um cliente específico pelo ID
-        /// </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<Cliente>> GetCliente(int id)
         {
-            var cliente = await _clienteService.GetClientePorIdAsync(id);
+            var cliente = await _clienteService.ObterPorIdAsync(id);
 
             if (cliente == null)
             {
@@ -84,19 +72,14 @@ namespace ExemploUnitOfWork.API.Controllers
             return Ok(cliente);
         }
 
-        /// <summary>
-        /// Obtém todos os clientes
-        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
         {
-            var clientes = await _clienteService.GetTodosClientesAsync();
+            var clientes = await _clienteService.GetTodosAsync();
+
             return Ok(clientes);
         }
 
-        /// <summary>
-        /// Atualiza um cliente existente
-        /// </summary>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCliente(int id, Cliente cliente)
         {
@@ -107,7 +90,7 @@ namespace ExemploUnitOfWork.API.Controllers
 
             try
             {
-                await _clienteService.AtualizarClienteAsync(cliente);
+                await _clienteService.AtualizarAsync(cliente);
                 return NoContent();
             }
             catch (ArgumentException)

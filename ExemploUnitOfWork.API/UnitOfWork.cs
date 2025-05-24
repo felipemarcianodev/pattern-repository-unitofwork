@@ -21,6 +21,8 @@ namespace ExemploUnitOfWork.API
         {
             _context = context;
             Clientes = new ClienteRepository(_context);
+            Produtos = new ProdutoRepository(_context);
+            Vendas = new VendaRepository(_context);
         }
 
         #endregion Public Constructors
@@ -28,6 +30,8 @@ namespace ExemploUnitOfWork.API
         #region Public Properties
 
         public IClienteRepository Clientes { get; }
+        public IProdutoRepository Produtos { get; }
+        public IVendaRepository Vendas { get; }
 
         #endregion Public Properties
 
