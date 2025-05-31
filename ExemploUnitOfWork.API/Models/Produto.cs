@@ -35,9 +35,6 @@ namespace ExemploUnitOfWork.API.Models
 
         public virtual void Comprar(decimal quantidadeAumentar)
         {
-            if (SaldoEstoque <= 0)
-                throw new InvalidOperationException("Produto não possui estoque suficiente");
-
             SaldoEstoque += quantidadeAumentar;
         }
     }
