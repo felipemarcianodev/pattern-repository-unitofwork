@@ -81,7 +81,7 @@ namespace ExemploUnitOfWork.API.Controllers
 
                 throw new Exception("Testando a transação do Unit of Work");
 
-                await _produtoService.ComprarAsync(venda.ProdutoId, venda.Quantidade);
+                await _produtoService.VenderAsync(venda.ProdutoId, venda.Quantidade);
 
                 return Created();
             }
