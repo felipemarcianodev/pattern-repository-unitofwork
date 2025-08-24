@@ -1,7 +1,5 @@
-﻿using System.Net;
-using ExemploUnitOfWork.API.Interfaces.Services;
+﻿using ExemploUnitOfWork.API.Interfaces.Services;
 using ExemploUnitOfWork.API.Models;
-using ExemploUnitOfWork.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExemploUnitOfWork.API.Controllers
